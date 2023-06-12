@@ -81,6 +81,7 @@ class ADT7410:
         temp = adt.temperature
 
     """
+
     _device_id = RegisterStruct(_REG_WHOAMI, "B")
     _temperature = RegisterStruct(_TEMP, ">h")
     _temperature_high = RegisterStruct(_TEMP_HIGH, ">h")
