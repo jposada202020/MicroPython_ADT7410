@@ -223,11 +223,11 @@ class ADT7410:
         .. code-block :: python
 
             import time
-            import board
-            import adt7410
+            from machine import Pin, I2C
+            from micropython_mcp9808 import mcp9808
 
-            i2c = board.I2C()  # uses board.SCL and board.SDA
-            adt = adt7410.ADT7410(i2c)
+            i2c = I2C(1, sda=Pin(2), scl=Pin(3))  # Correct I2C pins for RP2040
+            mcp = mcp9808.MCP9808(i2c)
 
             tmp.low_temperature = 20
             tmp.high_temperature = 23
