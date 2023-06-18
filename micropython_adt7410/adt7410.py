@@ -53,7 +53,7 @@ class ADT7410:
     """Driver for the ADT7410 Sensor connected over I2C.
 
     :param ~machine.I2C i2c: The I2C bus the ADT7410 is connected to.
-    :param int address: The I2C device address. Defaults to :const:`0x69`
+    :param int address: The I2C device address. Defaults to :const:`0x48`
 
     :raises RuntimeError: if the sensor is not found
 
