@@ -52,6 +52,22 @@ AlertStatus = namedtuple("AlertStatus", ["high_alert", "low_alert", "critical_al
 class ADT7410:
     """Driver for the ADT7410 Sensor connected over I2C.
 
+    The ADT7410 is a high accuracy digital temperature sensor. it has
+    a 13-bit ADC to monitor and digitize the temperature to a
+    0.0625°C resolution.
+
+    The ADC resolution, by default, is set to 13 bits (0.0625°C).
+    This can be changed to 16 bits (0.0078°C) by :attr:`resolution_mode`
+
+    The ADT7410 is rated for operation over the −55°C to +150°C temperature
+    range
+
+    In normal mode, the ADT7410 runs an automatic conversion
+    sequence. During this automatic conversion sequence, a conversion
+    takes 240 ms to complete and the ADT7410 is continuously
+    converting.
+
+
     :param ~machine.I2C i2c: The I2C bus the ADT7410 is connected to.
     :param int address: The I2C device address. Defaults to :const:`0x48`
 
@@ -262,6 +278,13 @@ class ADT7410:
     def comparator_mode(self) -> str:
         """
         Sensor comparator_mode
+        In comparator mode, the INT pin returns to its inactive status
+        when the temperature drops below the
+        :attr:`high_temperature` − :attr:`hysteresis_temperature` limit or
+        rises above the :attr:`low_temperature` + :attr:`hysteresis_temperature`
+        limit.
+        Putting the ADT7410 into shutdown mode does not reset the
+        INT state in comparator mode
 
         +-----------------------------------+-----------------+
         | Mode                              | Value           |
