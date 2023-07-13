@@ -5,5 +5,5 @@
     ["micropython_adt7410/examples/adt7410_resolution_mode.py", "github:jposada202020/MicroPython_ADT7410/examples/adt7410_resolution_mode.py"],
     ["micropython_adt7410/examples/adt7410_operation_mode.py", "github:jposada202020/MicroPython_ADT7410/examples/adt7410_operation_mode.py"]
   ],
-  "version": "0.1"
+  "version": "1"
 }
