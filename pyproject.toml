@@ -24,7 +24,6 @@ keywords = [
     "adt7410",
     "temperature",
     "adt7410",
-    "sensor",
     "driver",
     "micropython",
 ]
