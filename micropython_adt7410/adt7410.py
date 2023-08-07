@@ -307,7 +307,7 @@ class ADT7410:
         self._comparator_mode = value
 
     @property
-    def high_temperature(self) -> float:
+    def high_temperature(self) -> int:
         """
         High temperature limit value in Celsius
         When the temperature goes above the :attr:`high_temperature`,
@@ -329,7 +329,7 @@ class ADT7410:
         self._temperature_high = value * 128
 
     @property
-    def low_temperature(self) -> float:
+    def low_temperature(self) -> int:
         """
         Low temperature limit value in Celsius.
         When the temperature goes below the :attr:`low_temperature`,
@@ -341,7 +341,7 @@ class ADT7410:
         The INT pin is activated if an under temperature event occur
         The default setting is 10°C
         """
-        return self._temperature_low / 128
+        return self._temperature_low // 128
 
     @low_temperature.setter
     def low_temperature(self, value: int) -> None:
@@ -350,7 +350,7 @@ class ADT7410:
         self._temperature_low = value * 128
 
     @property
-    def critical_temperature(self) -> float:
+    def critical_temperature(self) -> int:
         """
         Critical temperature limit value in Celsius
         When the temperature goes above the :attr:`critical_temperature`,
@@ -362,7 +362,7 @@ class ADT7410:
         The INT pin is activated if a critical over temperature event occur
         The default setting is 147°C
         """
-        return self._temperature_critical / 128
+        return self._temperature_critical // 128
 
     @critical_temperature.setter
     def critical_temperature(self, value: int) -> None:
