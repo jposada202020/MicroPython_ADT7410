@@ -31,6 +31,7 @@ _TEMP_HIGH = const(0x04)
 _TEMP_LOW = const(0x06)
 _TEMP_CRITICAL = const(0x08)
 _TEMP_HYSTERESIS = const(0x0A)
+_RESET = const(0x2F)
 
 CONTINUOUS = const(0b00)
 ONE_SHOT = const(0b01)
@@ -384,3 +385,8 @@ class ADT7410:
         if value not in range(0, 16, 1):
             raise ValueError("Temperature should be between 0°C and 15°C")
         self._temperature_hysteresis = value
+
+    def reset(self) -> None:
+        """Reset the sensor to default values"""
+        self._i2c.writeto(self._address, bytes([_RESET]))
+        time.sleep(0.0002)
