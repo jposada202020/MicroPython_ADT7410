@@ -14,9 +14,9 @@ adt.high_temperature = 29
 adt.critical_temperature = 35
 adt.hysteresis_temperature = 2
 
-print("High limit: {}°C".format(adt.high_temperature))
-print("Low limit: {}°C".format(adt.low_temperature))
-print("Critical limit: {}°C".format(adt.critical_temperature))
+print(f"High limit: {adt.high_temperature}°C")
+print(f"Low limit: {adt.low_temperature}°C")
+print(f"Critical limit: {adt.critical_temperature}°C")
 
 adt.comparator_mode = adt7410.COMP_ENABLED
 

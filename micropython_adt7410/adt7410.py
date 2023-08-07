@@ -59,7 +59,7 @@ class ADT7410:
     The ADC resolution, by default, is set to 13 bits (0.0625°C).
     This can be changed to 16 bits (0.0078°C) by :attr:`resolution_mode`
 
-    The ADT7410 is rated for operation over the −55°C to +150°C temperature
+    The ADT7410 is rated for operation over the -55°C to +150°C temperature
     range
 
     In normal mode, the ADT7410 runs an automatic conversion
@@ -121,7 +121,7 @@ class ADT7410:
         self._address = address
 
         if self._device_id != 0xCB:
-            raise RuntimeError("Failed to find ADT7410")
+            raise RuntimeError("Failed to find the ADT7410 sensor")
 
     @property
     def operation_mode(self) -> str:
@@ -240,23 +240,23 @@ class ADT7410:
 
             import time
             from machine import Pin, I2C
-            from micropython_mcp9808 import mcp9808
+            from micropython_adt7410 import adat7410
 
             i2c = I2C(1, sda=Pin(2), scl=Pin(3))  # Correct I2C pins for RP2040
-            mcp = mcp9808.MCP9808(i2c)
+            adt = adt7410.ADT7410(i2c)
 
             tmp.low_temperature = 20
             tmp.high_temperature = 23
             tmp.critical_temperature = 30
 
-            print("High limit: {}".format(tmp.high_temperature))
-            print("Low limit: {}".format(tmp.low_temperature))
-            print("Critical limit: {}".format(tmp.critical_temperature))
+            print(f"High limit: {tmp.high_temperature}")
+            print(f"Low limit: {tmp.low_temperature}")
+            print(f"Critical limit: {tmp.critical_temperature}")
 
             adt.comparator_mode = adt7410.COMP_ENABLED
 
             while True:
-                print("Temperature: {:.2f}C".format(adt.temperature))
+                print(f"Temperature: {adt.temperature:.2f}°C")
                 alert_status = tmp.alert_status
                 if alert_status.high_alert:
                     print("Temperature above high set limit!")
@@ -280,7 +280,7 @@ class ADT7410:
         Sensor comparator_mode
         In comparator mode, the INT pin returns to its inactive status
         when the temperature drops below the
-        :attr:`high_temperature` − :attr:`hysteresis_temperature` limit or
+        :attr:`high_temperature` - :attr:`hysteresis_temperature` limit or
         rises above the :attr:`low_temperature` + :attr:`hysteresis_temperature`
         limit.
         Putting the ADT7410 into shutdown mode does not reset the
@@ -325,7 +325,7 @@ class ADT7410:
     @high_temperature.setter
     def high_temperature(self, value: int) -> None:
         if value not in range(-55, 151, 1):
-            raise ValueError("Temperature should be between -55C and 150C")
+            raise ValueError("Temperature should be between -55°C and 150°C")
         self._temperature_high = value * 128
 
     @property
@@ -341,12 +341,12 @@ class ADT7410:
         The INT pin is activated if an under temperature event occur
         The default setting is 10°C
         """
-        return self._temperature_low // 128
+        return self._temperature_low / 128
 
     @low_temperature.setter
     def low_temperature(self, value: int) -> None:
         if value not in range(-55, 151, 1):
-            raise ValueError("Temperature should be between -55C and 150C")
+            raise ValueError("Temperature should be between -55°C and 150°C")
         self._temperature_low = value * 128
 
     @property
@@ -362,12 +362,12 @@ class ADT7410:
         The INT pin is activated if a critical over temperature event occur
         The default setting is 147°C
         """
-        return self._temperature_critical // 128
+        return self._temperature_critical / 128
 
     @critical_temperature.setter
     def critical_temperature(self, value: int) -> None:
         if value not in range(-55, 151, 1):
-            raise ValueError("Temperature should be between -55C and 15C")
+            raise ValueError("Temperature should be between -55°C and 150°C")
         self._temperature_critical = value * 128
 
     @property
@@ -382,5 +382,5 @@ class ADT7410:
     @hysteresis_temperature.setter
     def hysteresis_temperature(self, value: int) -> None:
         if value not in range(0, 16, 1):
-            raise ValueError("Temperature should be between 0C and 15C")
+            raise ValueError("Temperature should be between 0°C and 15°C")
         self._temperature_hysteresis = value
